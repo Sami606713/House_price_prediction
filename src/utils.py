@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from PIL import Image
-import requests as r
+import requests
 from io import BytesIO
 from joblib import load
 # Read dataset
@@ -10,8 +10,8 @@ def read_data(file_path):
     return df
 
 # Load the image
-def load_image(img_path):
-    img=Image.open(img_path)
+def load_image():
+    img=Image.open("src/Notebook/house.jpg")
     return img
 
 def load_model(path):
