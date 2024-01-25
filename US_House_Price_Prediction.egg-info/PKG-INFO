@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: US-House-Price-Prediction
+Version: 3.12.0
+Summary: Build a end to end project on house price prediction with complete dash-board and webapp
+Home-page: https://github.com/Sami606713/House_price_prediction.git
+Author: Samiullah
+Author-email: sami606713@gmail.com
+Requires-Dist: streamlit
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Requires-Dist: scikit-learn
