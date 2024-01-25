@@ -6,10 +6,27 @@ import pandas as pd
 # Streamlit app page config
 st.set_page_config(page_title="House Price Prediction", page_icon=":house:", layout="wide")
 
-def main():
+def dashboard():
+    st.write("Dashboard")
+
+def prediction():
+    # load the tailwind css for styling
+    # make a navbar fun 
+    # navbar()
+
+    st.markdown(
+        """
+        <style>
+            @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+        </style>
+        """,
+        unsafe_allow_html=True
+        )
     # set the title
     st.markdown(
-        """<h1 style='text-align: center; color: darkblue; font-family: Arial, sans-serif;'>US House Price Prediction</h1>""",
+        """
+        <h1 class='text-center text-darkblue font-bold font-serif text-4xl'>US House Price Prediction</h1>
+       """,
         unsafe_allow_html=True
         )
     st.markdown(
@@ -27,7 +44,32 @@ def main():
         
         # call the right container
         right_container(right_col)
-                            
+
+
+def main():
+    navbar_classes = "bg-blue-500 text-white p-4"
+    nav_item_classes = "mr-4 hover:bg-blue-700 cursor-pointer"
+
+    # Add a navigation menu in the navbar
+    st.markdown(
+        f"""
+        <div class="{navbar_classes}">
+            <span class="{nav_item_classes}" onclick="location.href='/prediction'">Prediction</span>
+            <span class="{nav_item_classes}" onclick="location.href='/dashboard'">Dashboard</span>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Get the current page
+    page = st.experimental_get_query_params().get("page", "prediction")
+
+    # Display the selected page
+    if page == "prediction":
+        prediction()
+    elif page == "dashboard":
+        dashboard()
+
 def left_container(left_col):
     with left_col:
         img=load_image()
@@ -101,8 +143,8 @@ def make_form():
             pred=model.predict(df)
             success=st.success(f"House preice is {pred[0].round()}")
 
-def make_check_box():
-    pass
 
+# def main():
+#     pass
 if __name__=="__main__":
     main()
