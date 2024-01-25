@@ -11,14 +11,9 @@ def read_data(file_path):
 
 # Load the image
 def load_image(img_path):
-
     img=Image.open(img_path)
-
     return img
 
 def load_model(path):
     model=load(path)
     return model
-
-# if __name__=="__main__":
-#     model=load_model("src/Model/house.pkl")
