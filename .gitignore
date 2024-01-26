@@ -12,7 +12,6 @@ build/
 develop-eggs/
 Lib/
 dist/
-Scripts/
 downloads/
 US_House_Price_Prediction.egg-info/
 eggs/
