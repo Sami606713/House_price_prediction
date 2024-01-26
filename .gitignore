@@ -10,10 +10,10 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-/.Lib
-/.Scripts
+Lib/
+Scripts/
 downloads/
-/.US_House_Price_Prediction.egg-info
+US_House_Price_Prediction.egg-info/
 eggs/
 .eggs/
 lib/
