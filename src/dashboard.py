@@ -28,12 +28,7 @@ def dashboard():
             logo,title=st.columns(2)
             with logo:
                 img=load_image()
-                st.markdown(
-                """
-                <img src="{img}" alt="Responsive Image" class="w-full h-auto object-cover mx-auto">
-                 """,
-            unsafe_allow_html=True
-            )
+                st.image(img, output_format="JPEG", width=50)
             with title:
                 st.markdown(
                 """

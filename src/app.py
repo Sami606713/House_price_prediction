@@ -126,11 +126,12 @@ def main():
 # Get the current page
     page = st.query_params.get("page", "dashboard")
     # Display the selected page
-    if page == "dashboard":
-        dashboard()
-        # prediction()
+    if page != "dashboard":
+        # dashboard()
+        prediction()
     else:
         prediction()
+        # dashboard()
         
 
 if __name__=="__main__":
