@@ -1,5 +1,6 @@
 import streamlit as st
 from utils import read_data,load_image,load_model
+from css import load_tailwind
 import numpy as np
 import pandas as pd
 
@@ -12,16 +13,7 @@ def dashboard():
 def prediction():
     # load the tailwind css for styling
     # make a navbar fun 
-    # navbar()
-
-    st.markdown(
-        """
-        <style>
-            @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
-        </style>
-        """,
-        unsafe_allow_html=True
-        )
+    load_tailwind()
     # set the title
     st.markdown(
         """
@@ -47,28 +39,29 @@ def prediction():
 
 
 def main():
-    navbar_classes = "bg-blue-500 text-white p-4"
-    nav_item_classes = "mr-4 hover:bg-blue-700 cursor-pointer"
+    navbar_classes = "bg-gray-500 text-white p-4 rounded border border-white-500"
+    nav_item_classes = "mr-4 hover:text-white cursor-pointer"
 
     # Add a navigation menu in the navbar
     st.markdown(
-        f"""
-        <div class="{navbar_classes}">
-            <span class="{nav_item_classes}" onclick="location.href='/prediction'">Prediction</span>
-            <span class="{nav_item_classes}" onclick="location.href='/dashboard'">Dashboard</span>
-        </div>
-        """,
-        unsafe_allow_html=True
+    f"""
+    <div class="{navbar_classes} text-center text-2xl">
+        <span class="{nav_item_classes}  bg-white-500 text-black py-2 hover:text-white px-4 rounded hover:bg-green-500 border border-white-500 p-4" onclick="location.href='/prediction'">Prediction</span>
+        <span class="{nav_item_classes} bg-white-500 text-black py-2 hover:text-white px-4 rounded hover:bg-blue-500 border border-white-500 p-4" onclick="location.href='/dashboard'">Dashboard</span>
+    </div>
+    """,
+    unsafe_allow_html=True
     )
 
-    # Get the current page
-    page = st.experimental_get_query_params().get("page", "prediction")
+# Get the current page
+    page = st.query_params.get("page", "prediction")
 
     # Display the selected page
     if page == "prediction":
         prediction()
     elif page == "dashboard":
         dashboard()
+
 
 def left_container(left_col):
     with left_col:
@@ -111,7 +104,7 @@ def make_form():
         view,water=st.columns(2)
         with view:
             views=st.selectbox("view", sorted(df[df["view"]>0]["view"].unique()))
-
+        
         with water:
             water_front=st.selectbox("waterfront", sorted(df["waterfront"].unique()))
 
