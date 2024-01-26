@@ -27,16 +27,18 @@ def dashboard():
         with col1:
             logo,title=st.columns(2)
             with logo:
+                img=load_image()
                 st.markdown(
                 """
-                <h1 class='text-center text-darkblue font-bold font-serif text-1xl'>house logo</h1>
+                <img src="{img}" alt="Responsive Image" class="w-full h-auto object-cover mx-auto">
                  """,
             unsafe_allow_html=True
             )
             with title:
                 st.markdown(
                 """
-                <h1 class='text-center text-darkblue font-bold font-serif text-1xl'>US House title</h1>
+                <h1 class='bg-blue text-center text-black font-bold font-serif text-xl'>US House title</h1>
+
                 """,
                 unsafe_allow_html=True
                 )
@@ -101,9 +103,10 @@ def dashboard():
                     st.pyplot(fig)
 
 
-    with st.container(border=True,height=None):
+    # with st.container(border=True,height=None):
         
-        fig,axis=plt.subplots()
-        fig.set_size_inches(20, 5)
-        sns.lineplot(x="sqft_total",y="price",data=df,color="red") 
-        st.pyplot(fig) 
+    #     fig,axis=plt.subplots()
+    #     fig.set_size_inches(20, 5)
+    #     plt.title("Relation b/w Price and Area")
+    #     sns.lineplot(x="sqft_total",y="price",data=df,color="red") 
+    #     st.pyplot(fig) 
