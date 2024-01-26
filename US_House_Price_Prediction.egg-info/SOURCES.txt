@@ -1,7 +1,0 @@
-README.md
-setup.py
-US_House_Price_Prediction.egg-info/PKG-INFO
-US_House_Price_Prediction.egg-info/SOURCES.txt
-US_House_Price_Prediction.egg-info/dependency_links.txt
-US_House_Price_Prediction.egg-info/requires.txt
-US_House_Price_Prediction.egg-info/top_level.txt
