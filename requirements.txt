@@ -6,4 +6,5 @@ seaborn
 scikit-learn
 pillow
 requests
+plotly
 -e .

@@ -3,6 +3,7 @@ from utils import read_data,load_image,load_model,load_tailwind
 import numpy as np
 import pandas as pd
 from dashboard import dashboard
+# import plotly.figure_factory as ff
 
 # Streamlit app page config
 st.set_page_config(page_title="House Price Prediction", page_icon=":house:", layout="wide")
@@ -24,7 +25,7 @@ def prediction():
         """
     )
     # make a main cntainer inside the main container make two left and right columns
-    with st.container():
+    with st.container(border=True):
         # make two columns
         left_col,right_col=st.columns(2)
 
@@ -123,12 +124,14 @@ def main():
     )
 
 # Get the current page
-    page = st.query_params.get("page", "prediction")
+    page = st.query_params.get("page", "dashboard")
     # Display the selected page
-    if page == "prediction":
-        prediction()
-    elif page == "dashboard":
+    if page == "dashboard":
         dashboard()
+        # prediction()
+    else:
+        prediction()
+        
 
 if __name__=="__main__":
     main()

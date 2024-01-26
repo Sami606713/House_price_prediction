@@ -2,33 +2,108 @@ import streamlit as st
 from utils import read_data,load_image,load_model,load_tailwind
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+# import plotly.figure_factory as ff
+import seaborn as sns
 
 # Streamlit app page config
 # st.set_page_config(page_title="Dashboard", page_icon=":house:", layout="wide")
 
 def dashboard():
-    st.write("Dashboard")
-
-
-def main():
-    navbar_classes = "bg-gray-500 text-white p-4 rounded border border-white-500"
-    nav_item_classes = "mr-4 hover:text-white cursor-pointer"
-
-    # Add a navigation menu in the navbar
+    load_tailwind()
+    df=read_data("src/Notebook/clean_data.csv")
     st.markdown(
-    f"""
-    <div class="{navbar_classes} text-center text-2xl">
-        <span class="{nav_item_classes}  bg-white-500 text-black py-2 hover:text-white px-4 rounded hover:bg-green-500 border border-white-500 p-4" onclick="location.href='/prediction'">Prediction</span>
-        <span class="{nav_item_classes} bg-white-500 text-black py-2 hover:text-white px-4 rounded hover:bg-blue-500 border border-white-500 p-4" onclick="location.href='/dashboard'">Dashboard</span>
-    </div>
-    """,
-    unsafe_allow_html=True
-    )
+        """
+        <h1 class='text-center text-darkblue font-bold font-serif text-4xl'>US House Dashboard</h1>
+       """,
+        unsafe_allow_html=True
+        )
 
-# Get the current page
-    page = st.query_params.get("page", "prediction")
-    # Display the selected page
-    if page == "prediction":
-        prediction()
-    elif page == "dashboard":
-        dashboard()
+    # with st.container():
+        # st.dataframe(df.head(5))
+
+    with st.container(border=True,height=None):
+        col1,col2,col3,col4=st.columns(4)
+        with col1:
+            logo,title=st.columns(2)
+            with logo:
+                st.markdown(
+                """
+                <h1 class='text-center text-darkblue font-bold font-serif text-1xl'>house logo</h1>
+                 """,
+            unsafe_allow_html=True
+            )
+            with title:
+                st.markdown(
+                """
+                <h1 class='text-center text-darkblue font-bold font-serif text-1xl'>US House title</h1>
+                """,
+                unsafe_allow_html=True
+                )
+        with col2:
+            st.title("val1")
+        with col3:
+            st.title("val2")
+        with col4:
+            st.title("val3")
+    
+    with st.container(border=True,height=None):
+        col1,col2=st.columns(2)
+        with col1:
+            st.title("Histogram")
+            
+            select_col,graph=st.columns(2)
+            with select_col:
+                select_col=st.selectbox("",df[["price","sqft_total"]].columns)
+            with graph:
+                graph=st.selectbox("",["Histogram","Density Plot","BoxPlot"])
+            
+            with st.container():
+                if select_col and graph=="Histogram":
+                    fig, ax = plt.subplots()
+                    sns.histplot(df[select_col], bins=20,palette="deep",color="skyblue", edgecolor="black")
+                    plt.title(select_col)
+
+                    st.pyplot(fig) 
+                elif select_col and graph=="Density Plot":
+                    fig, ax = plt.subplots()
+                    sns.kdeplot(df[select_col],palette="deep")
+                    plt.title(select_col)
+                    st.pyplot(fig) 
+
+                elif select_col and graph=="BoxPlot":
+                    fig, ax = plt.subplots()
+                    sns.boxplot(df[select_col],palette="deep")
+                    plt.title(select_col)
+                    st.pyplot(fig)       
+        with col2:
+            st.title("Barplot")
+            select_col,graph=st.columns(2)
+            with select_col:
+                select_col=st.selectbox("",df[["bedrooms","bathrooms","floors","view","waterfront"]].columns)
+            with graph:
+                graph=st.selectbox("",["Barplot","Pie Chart"])
+            
+            with st.container():
+                if select_col and graph == "Barplot":
+                    # Create a bar plot using Seaborn
+                    fig, ax = plt.subplots()
+                    sns.countplot(x=df[select_col], palette="pastel", edgecolor="black")
+                    plt.title(select_col)
+
+                    st.pyplot(fig)
+                elif select_col and graph == "Pie Chart":
+                    # Create a bar plot using Seaborn
+                    fig, ax = plt.subplots()
+                    plt.pie(df[select_col].value_counts(),labels=df[select_col].value_counts().index,autopct="%.2f")
+                    # plt.title(select_col)
+
+                    st.pyplot(fig)
+
+
+    with st.container(border=True,height=None):
+        
+        fig,axis=plt.subplots()
+        fig.set_size_inches(20, 5)
+        sns.lineplot(x="sqft_total",y="price",data=df,color="red") 
+        st.pyplot(fig) 
