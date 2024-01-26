@@ -1,14 +1,11 @@
 import streamlit as st
-from utils import read_data,load_image,load_model
-from css import load_tailwind
+from utils import read_data,load_image,load_model,load_tailwind
 import numpy as np
 import pandas as pd
+from dashboard import dashboard
 
 # Streamlit app page config
 st.set_page_config(page_title="House Price Prediction", page_icon=":house:", layout="wide")
-
-def dashboard():
-    st.write("Dashboard")
 
 def prediction():
     # load the tailwind css for styling
@@ -36,32 +33,6 @@ def prediction():
         
         # call the right container
         right_container(right_col)
-
-
-def main():
-    navbar_classes = "bg-gray-500 text-white p-4 rounded border border-white-500"
-    nav_item_classes = "mr-4 hover:text-white cursor-pointer"
-
-    # Add a navigation menu in the navbar
-    st.markdown(
-    f"""
-    <div class="{navbar_classes} text-center text-2xl">
-        <span class="{nav_item_classes}  bg-white-500 text-black py-2 hover:text-white px-4 rounded hover:bg-green-500 border border-white-500 p-4" onclick="location.href='/prediction'">Prediction</span>
-        <span class="{nav_item_classes} bg-white-500 text-black py-2 hover:text-white px-4 rounded hover:bg-blue-500 border border-white-500 p-4" onclick="location.href='/dashboard'">Dashboard</span>
-    </div>
-    """,
-    unsafe_allow_html=True
-    )
-
-# Get the current page
-    page = st.query_params.get("page", "prediction")
-
-    # Display the selected page
-    if page == "prediction":
-        prediction()
-    elif page == "dashboard":
-        dashboard()
-
 
 def left_container(left_col):
     with left_col:
@@ -136,8 +107,28 @@ def make_form():
             pred=model.predict(df)
             success=st.success(f"House preice is {pred[0].round()}")
 
+def main():
+    navbar_classes = "bg-gray-500 text-white p-4 rounded border border-white-500"
+    nav_item_classes = "mr-4 hover:text-white cursor-pointer"
 
-# def main():
-#     pass
+    # Add a navigation menu in the navbar
+    st.markdown(
+    f"""
+    <div class="{navbar_classes} text-center text-2xl">
+        <span class="{nav_item_classes}  bg-white-500 text-black py-2 hover:text-white px-4 rounded hover:bg-green-500 border border-white-500 p-4" onclick="location.href='/prediction'">Prediction</span>
+        <span class="{nav_item_classes} bg-white-500 text-black py-2 hover:text-white px-4 rounded hover:bg-blue-500 border border-white-500 p-4" onclick="location.href='/dashboard'">Dashboard</span>
+    </div>
+    """,
+    unsafe_allow_html=True
+    )
+
+# Get the current page
+    page = st.query_params.get("page", "prediction")
+    # Display the selected page
+    if page == "prediction":
+        prediction()
+    elif page == "dashboard":
+        dashboard()
+
 if __name__=="__main__":
     main()
