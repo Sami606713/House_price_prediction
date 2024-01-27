@@ -7,7 +7,6 @@ from streamlit_option_menu import option_menu
 
 def prediction():
     # load the tailwind css for styling
-    # make a navbar fun 
     load_tailwind()
     # set the title
     st.markdown(
@@ -74,10 +73,11 @@ def make_form():
         with view:
             views=st.selectbox("view", sorted(df[df["view"]>0]["view"].unique()))
         
+        water_dic={"yes":1,"No":0}
         with water:
-            water_front=st.selectbox("waterfront", sorted(df["waterfront"].unique()))
+            water_front=st.selectbox("waterfront", water_dic.keys())
 
-                    # Use st.selectbox to create a dropdown
+        # Use st.selectbox to create a dropdown
         count,city=st.columns(2)
         with count:
             country=st.selectbox("location", df["country"].unique())
@@ -87,12 +87,12 @@ def make_form():
                     # form submit button
         if(st.form_submit_button("Estimate Price")):
                         
-                        # get the values and make a dataframe b/c columns transformer espect dataframe not a numpy array
+        # get the values and make a dataframe b/c columns transformer espect dataframe not a numpy array
             df = pd.DataFrame({
                         'bedrooms': [bedroom],
                         'bathrooms': [bathroom],
                         'floors': [floors],
-                        'waterfront': [water_front],
+                        'waterfront': [water_dic[water_front]],
                         'view': [views],
                         'city': [selected_city],
                         'country': [country],

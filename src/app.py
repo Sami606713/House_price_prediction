@@ -15,7 +15,7 @@ def main():
     selected = option_menu(
         menu_title=None,
         options=["Home", 'Dashboard'], 
-        icons=['house', 'camera'], 
+        icons=['house', 'camera',"data","book"], 
         menu_icon="cast", 
         default_index=0,
         orientation="horizontal"
@@ -28,7 +28,17 @@ def main():
     elif selected == "Dashboard":
         # prediction()
         dashboard()
-        
+    # elif selected=="Data-Set":
+        with st.container():
+            st.markdown(
+                """
+                <h1 class='text-center text-darkblue font-bold font-serif text-4xl'>US House Data-Set</h1>
+                """,
+                unsafe_allow_html=True
+            )
+            df=read_data("src/Notebook/clean_data.csv")
+            st.dataframe(df)
+    
 
 if __name__=="__main__":
     main()

@@ -19,16 +19,13 @@ def dashboard():
         unsafe_allow_html=True
         )
 
-    # with st.container():
-        # st.dataframe(df.head(5))
-
     with st.container(border=True,height=None):
         col1,col2,col3,col4=st.columns(4)
         with col1:
             logo,title=st.columns(2)
             with logo:
                 img=load_image()
-                st.image(img, output_format="JPEG", width=80)
+                st.image(img, output_format="JPEG", width=100)
             with title:
                 st.markdown(
                 """
@@ -38,16 +35,43 @@ def dashboard():
                 unsafe_allow_html=True
                 )
         with col2:
-            st.title("")
+            with st.container(border=True):
+                st.markdown(
+                        f"""
+                        <h2 class='bg-blue text-center text-black font-bold font-serif text-xl'>Total Record</h2>
+
+                        <h3 class='bg-blue text-center text-red-500 font-bold font-serif text-xl'>{df.shape[0]}</h3>
+
+                        """,
+                        unsafe_allow_html=True
+                    )
         with col3:
-            st.title("val2")
+            with st.container(border=True):
+                st.markdown(
+                        f"""
+                        <h2 class='bg-blue text-center text-black font-bold font-serif text-xl'>Total Cities</h2>
+
+                        <h3 class='bg-blue text-center text-green-500 font-bold font-serif text-xl'>{df["city"].nunique()}</h3>
+
+                        """,
+                        unsafe_allow_html=True
+                    )
         with col4:
-            st.title("val3")
+            with st.container(border=True):
+                st.markdown(
+                        f"""
+                        <h2 class='bg-blue text-center text-black font-bold font-serif text-xl'>Country</h2>
+
+                        <h3 class='bg-blue text-center text-yellow-500 font-bold font-serif text-xl'>{df["country"].unique()[0]}</h3>
+
+                        """,
+                        unsafe_allow_html=True
+                    )
     
     with st.container(border=True,height=None):
         # filter_data=st.columns(1)
         with st.container():
-            st.title("Add Filter")
+            # st.title("Add Filter")
             select_filter=st.selectbox("",["All"]+sorted(df["city"].unique().tolist()))
             
             if(select_filter=="All"):
@@ -66,7 +90,7 @@ def dashboard():
             with st.container():
                 if select_col and graph=="Histogram":
                     fig, ax = plt.subplots()
-                    fig = px.histogram(filter_data, x=select_col, nbins=20, title="Histogram")
+                    fig = px.histogram(filter_data, x=select_col, nbins=50, title="Histogram")
                     st.plotly_chart(fig)
             
                 elif select_col and graph=="Density Plot":
