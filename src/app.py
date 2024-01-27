@@ -15,7 +15,7 @@ def main():
     selected = option_menu(
         menu_title=None,
         options=["Home", 'Dashboard'], 
-        icons=['house', 'board'], 
+        icons=['house', 'camera'], 
         menu_icon="cast", 
         default_index=0,
         orientation="horizontal"

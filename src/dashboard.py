@@ -3,7 +3,7 @@ from utils import read_data,load_image,load_model,load_tailwind
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-# import plotly.figure_factory as ff
+import plotly.express as px
 import seaborn as sns
 
 # Streamlit app page config
@@ -38,40 +38,49 @@ def dashboard():
                 unsafe_allow_html=True
                 )
         with col2:
-            st.title("val1")
+            st.title("")
         with col3:
             st.title("val2")
         with col4:
             st.title("val3")
     
     with st.container(border=True,height=None):
-    
+        # filter_data=st.columns(1)
+        with st.container():
+            st.title("Add Filter")
+            select_filter=st.selectbox("",["All"]+sorted(df["city"].unique().tolist()))
+            
+            if(select_filter=="All"):
+                filter_data=df
+            else:
+                filter_data=df[df["city"]==select_filter]
+            
         col1,col2=st.columns(2)
         with col1:
             select_col,graph=st.columns(2)
             with select_col:
-                select_col=st.selectbox("",df[["price","sqft_total"]].columns)
+                select_col=st.selectbox("",filter_data[["price","sqft_total"]].columns)
             with graph:
                 graph=st.selectbox("",["Histogram","Density Plot","BoxPlot"])
             
             with st.container():
                 if select_col and graph=="Histogram":
                     fig, ax = plt.subplots()
-                    sns.histplot(df[select_col], bins=20,palette="deep",color="skyblue", edgecolor="black")
-                    plt.title(select_col)
-
-                    st.pyplot(fig) 
+                    fig = px.histogram(filter_data, x=select_col, nbins=20, title="Histogram")
+                    st.plotly_chart(fig)
+            
                 elif select_col and graph=="Density Plot":
                     fig, ax = plt.subplots()
-                    sns.kdeplot(df[select_col],palette="deep")
+                    sns.kdeplot(filter_data[select_col],palette="deep")
                     plt.title(select_col)
                     st.pyplot(fig) 
 
                 elif select_col and graph=="BoxPlot":
                     fig, ax = plt.subplots()
                     sns.boxplot(df[select_col],palette="deep")
-                    plt.title(select_col)
-                    st.pyplot(fig)       
+                    fig = px.box(filter_data, y=select_col, title="Histogram")
+                    st.plotly_chart(fig)
+                    # plt.title(select_col)     
         with col2:
             select_col,graph=st.columns(2)
             with select_col:
@@ -83,23 +92,19 @@ def dashboard():
                 if select_col and graph == "Barplot":
                     # Create a bar plot using Seaborn
                     fig, ax = plt.subplots()
-                    sns.countplot(x=df[select_col], palette="pastel", edgecolor="black")
-                    plt.title(select_col)
-
-                    st.pyplot(fig)
+                    sns.countplot(data=filter_data,x=select_col)
+                    st.pyplot(fig) 
                 elif select_col and graph == "Pie Chart":
                     # Create a bar plot using Seaborn
                     fig, ax = plt.subplots()
-                    plt.pie(df[select_col].value_counts(),labels=df[select_col].value_counts().index,autopct="%.2f")
-                    # plt.title(select_col)
+                    # plt.pie(filter_data[select_col].value_counts(),labels=filter_data[select_col].value_counts().index,autopct="%.2f")
+                    fig = px.pie(filter_data, names=select_col, title="Pie Chart")
+                    st.plotly_chart(fig)
 
-                    st.pyplot(fig)
 
-
-    # with st.container(border=True,height=None):
-        
-    #     fig,axis=plt.subplots()
-    #     fig.set_size_inches(20, 5)
-    #     plt.title("Relation b/w Price and Area")
-    #     sns.lineplot(x="sqft_total",y="price",data=df,color="red") 
-    #     st.pyplot(fig) 
+    with st.container(border=True,height=None):
+        fig,axis=plt.subplots()
+        fig.set_size_inches(20, 5)
+        plt.title("Relation b/w Price and Area")
+        sns.lineplot(x="sqft_total",y="price",data=filter_data,color="red") 
+        st.pyplot(fig)
