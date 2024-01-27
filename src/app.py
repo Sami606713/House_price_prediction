@@ -27,15 +27,15 @@ def main():
         # prediction()
         dashboard()
     # elif selected=="Data-Set":
-        with st.container():
-            st.markdown(
-                """
-                <h1 class='text-center text-darkblue font-bold font-serif text-4xl'>US House Data-Set</h1>
-                """,
-                unsafe_allow_html=True
-            )
-            df=read_data("src/Notebook/clean_data.csv")
-            st.dataframe(df)
+        # with st.container():
+        #     st.markdown(
+        #         """
+        #         <h1 class='text-center text-darkblue font-bold font-serif text-4xl'>US House Data-Set</h1>
+        #         """,
+        #         unsafe_allow_html=True
+        #     )
+        #     df=read_data("src/Notebook/clean_data.csv")
+        #     st.dataframe(df)
     
 
 if __name__=="__main__":
