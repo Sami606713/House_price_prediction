@@ -28,7 +28,7 @@ def dashboard():
             logo,title=st.columns(2)
             with logo:
                 img=load_image()
-                st.image(img, output_format="JPEG", width=50)
+                st.image(img, output_format="JPEG", width=80)
             with title:
                 st.markdown(
                 """
@@ -45,10 +45,9 @@ def dashboard():
             st.title("val3")
     
     with st.container(border=True,height=None):
+    
         col1,col2=st.columns(2)
         with col1:
-            st.title("Histogram")
-            
             select_col,graph=st.columns(2)
             with select_col:
                 select_col=st.selectbox("",df[["price","sqft_total"]].columns)
@@ -74,7 +73,6 @@ def dashboard():
                     plt.title(select_col)
                     st.pyplot(fig)       
         with col2:
-            st.title("Barplot")
             select_col,graph=st.columns(2)
             with select_col:
                 select_col=st.selectbox("",df[["bedrooms","bathrooms","floors","view","waterfront"]].columns)
