@@ -29,7 +29,7 @@ def dashboard():
             with title:
                 st.markdown(
                 """
-                <h1 class='bg-blue text-center text-black font-bold font-serif text-xl'>US House title</h1>
+                <h1 class='bg-blue text-center text-red-500 font-bold font-serif text-xl'>US House title</h1>
 
                 """,
                 unsafe_allow_html=True
@@ -38,7 +38,7 @@ def dashboard():
             with st.container(border=True):
                 st.markdown(
                         f"""
-                        <h2 class='bg-blue text-center text-black font-bold font-serif text-xl'>Total Record</h2>
+                        <h2 class='bg-blue text-center text-yellow-500 font-bold font-serif text-xl'>Total Record</h2>
 
                         <h3 class='bg-blue text-center text-red-500 font-bold font-serif text-xl'>{df.shape[0]}</h3>
 
@@ -49,7 +49,7 @@ def dashboard():
             with st.container(border=True):
                 st.markdown(
                         f"""
-                        <h2 class='bg-blue text-center text-black font-bold font-serif text-xl'>Total Cities</h2>
+                        <h2 class='bg-blue text-center text-red-500 font-bold font-serif text-xl'>Total Cities</h2>
 
                         <h3 class='bg-blue text-center text-green-500 font-bold font-serif text-xl'>{df["city"].nunique()}</h3>
 
@@ -60,7 +60,7 @@ def dashboard():
             with st.container(border=True):
                 st.markdown(
                         f"""
-                        <h2 class='bg-blue text-center text-black font-bold font-serif text-xl'>Country</h2>
+                        <h2 class='bg-blue text-center text-green-500 font-bold font-serif text-xl'>Country</h2>
 
                         <h3 class='bg-blue text-center text-yellow-500 font-bold font-serif text-xl'>{df["country"].unique()[0]}</h3>
 

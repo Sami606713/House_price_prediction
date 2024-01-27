@@ -2,7 +2,6 @@ import streamlit as st
 from utils import read_data,load_image,load_model,load_tailwind
 import numpy as np
 import pandas as pd
-from dashboard import dashboard
 from streamlit_option_menu import option_menu
 
 def prediction():
