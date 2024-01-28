@@ -90,8 +90,8 @@ def dashboard():
             with st.container():
                 if select_col and graph=="Histogram":
                     fig, ax = plt.subplots()
-                    fig = px.histogram(filter_data, x=select_col, nbins=50, title="Histogram")
-                    st.plotly_chart(fig)
+                    sns.histplot(data=filter_data, x=select_col, bins=50)
+                    st.pyplot(fig) 
             
                 elif select_col and graph=="Density Plot":
                     fig, ax = plt.subplots()
@@ -102,9 +102,9 @@ def dashboard():
                 elif select_col and graph=="BoxPlot":
                     fig, ax = plt.subplots()
                     sns.boxplot(df[select_col],palette="deep")
-                    fig = px.box(filter_data, y=select_col, title="Histogram")
-                    st.plotly_chart(fig)
-                    # plt.title(select_col)     
+                    plt.title(select_col) 
+                    st.pyplot(fig) 
+                        
         with col2:
             select_col,graph=st.columns(2)
             with select_col:
@@ -127,8 +127,17 @@ def dashboard():
 
 
     with st.container(border=True,height=None):
-        fig,axis=plt.subplots()
-        fig.set_size_inches(20, 5)
-        plt.title("Relation b/w Price and Area")
-        sns.lineplot(x="sqft_total",y="price",data=filter_data,color="red") 
-        st.pyplot(fig)
+        # line_col,scatter_col=st.columns(2)
+        select_col=st.selectbox("",["Line","Scatter"])
+        if(select_col=="Lines"):
+            fig,axis=plt.subplots()
+            fig.set_size_inches(20, 5)
+            plt.title("Relation b/w Price and Area")
+            sns.lineplot(x="sqft_total",y="price",data=filter_data,color="red") 
+            st.pyplot(fig)
+        elif(select_col=="Scatter"):
+            fig,axis=plt.subplots()
+            fig.set_size_inches(20, 5)
+            plt.title("Relation b/w Price and Area")
+            sns.scatterplot(x="sqft_total",y="price",data=filter_data,color="red") 
+            st.pyplot(fig)
