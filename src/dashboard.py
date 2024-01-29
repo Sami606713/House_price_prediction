@@ -129,7 +129,7 @@ def dashboard():
     with st.container(border=True,height=None):
         # line_col,scatter_col=st.columns(2)
         select_col=st.selectbox("",["Line","Scatter"])
-        if(select_col=="Lines"):
+        if(select_col=="Line"):
             fig,axis=plt.subplots()
             fig.set_size_inches(20, 5)
             plt.title("Relation b/w Price and Area")
